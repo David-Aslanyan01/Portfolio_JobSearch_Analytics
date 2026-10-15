@@ -7,7 +7,7 @@ Use tools such as git & github, docker, kubernetes (at a later stage) to better 
    - Git  -
    - Git  -
    - Git  -
- - Docker - Separate each piece of code\script into a standalone atomic module. Each such module shall serve as a docker container.
+ - Docker - Separate each code\script module into a standalone atomic docker container.
  - Ngin-X\Tailscale - Reverse proxy for hosting.
 
 # Languages:
@@ -27,20 +27,22 @@ Practice and reflect real-world use-cases for cloud computing and micro-services
 The project shall be written both on a Linux environment as well as Windows.
 The project will involve AI to serve as a bridge between code and unstructured data.
 
-# The project plan:
+# Project plan:
 # Container #1 - Gmail Integration:
-- Pull incoming emails and forward them as a json object to the next docker image.
-- Label emails (?) - Not sure if\how I'll use this, yet. Probably will, but I'll figure it out later.
+- Fetch incoming emails and forward them as a json object to the next docker image.
 - This container shall be written in either Node.JS or App Script. (To gain experience in Node.JS as another language in my arsenal)
+- Email labeling - optional
 
 # Container #2 - AI Integration:
 - Data passed from Container#1 isn't structured. Each job offer\listing has its own description, details and format.
 - This container shall use a LLama model I converted from the original meta weights, to convert extracted JSONs to objects based off-of defined parameters.
 - Conversions shall happen using an mcp server (to gain some experience in mcp servers as well) to have the AI gather the data and use functions from an mcp servers to have the json built by code.
-- The model can be instructed to write the json, however, since the model is outdated it might not perform as good as newer models. The model is preferred in this case, even if mundane, due to a smaller database it was trained on (potentially, less room for bias. We only need the model to perform actions and not handle back and furth conversations). Task successfully completing is much more likely using solid code rather than AI (better guarantees less errors, less room for AI-mess-ups as well as lessens the load on the context and cache).
-
+- The model can be instructed to write the json, however, since the model is outdated it might not perform as good as newer, more robust, models. LLama 3.2-3B was chosen (even though mundane at this point) due to its training database being smaller, potentially lessening room for bias\malicious-code execution "intent" (the model is only required to perform actions, and not handle back and furth chat input\output operations).
+- Solid code for performing the task is preferable to AI for such a simple task (better guarantees less errors, less room for AI-mess-ups as well as lessens context and cache load on the resources required for running the model).
 - MCP server functions shall be written in C,(to gain better control and understanding of the C language).
-- Functions shall write to json, save to json array, merge jsons. This shall server as practice for structs and memory management.
+- MCP functions shall write to json (This shall server as practice for structs and memory management)
+- MCP functions shall save to json array (This shall server as practice for structs and memory management)
+- MCP functions shall merge jsons (This shall server as practice for structs and memory management)
 - The model shall run locally on a BC250 device, by routing traffic from and to it over the network.
 
 # Container #3 - JSON to CSV:
