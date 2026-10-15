@@ -8,6 +8,7 @@ Use tools such as git & github, docker, kubernetes (at a later stage) to better 
    - Git  -
    - Git  -
  - Docker - Separate each piece of code\script into a standalone atomic module. Each such module shall serve as a docker container.
+ - Ngin-X\Tailscale - Reverse proxy for hosting.
 
 # Languages:
 The project will be written in multiple programing languages in order to gain experience in programing languages such as: C , JavaScript, Python, Java, Node.JS.
@@ -30,61 +31,37 @@ The project will involve AI to serve as a bridge between code and unstructured d
 # Container #1 - Gmail Integration:
 - Pull incoming emails and forward them as a json object to the next docker image.
 - Label emails (?) - Not sure if\how I'll use this, yet. Probably will, but I'll figure it out later.
-- This container shall be written in either Node.JS or App Script. I want to get some experience in Node.JS to have yet another language in my arsenal.
+- This container shall be written in either Node.JS or App Script. (To gain experience in Node.JS as another language in my arsenal)
 
 # Container #2 - AI Integration:
-- The data passed from Container#1 won't be persistent. Each job offer\listing has its own description and details.
-- Use a LLama model I converted from the original meta weights, to take the json and create Json objects based off-of parameters I'll define to it using prompts.
-- Combine an mcp server at this point just to gain some experience in mcp servers as well. The idea is to have the AI gather the data and use functions from an mcp servers to have the json built by code.
--
--
+- Data passed from Container#1 isn't structured. Each job offer\listing has its own description, details and format.
+- This container shall use a LLama model I converted from the original meta weights, to convert extracted JSONs to objects based off-of defined parameters.
+- Conversions shall happen using an mcp server (to gain some experience in mcp servers as well) to have the AI gather the data and use functions from an mcp servers to have the json built by code.
+- The model can be instructed to write the json, however, since the model is outdated it might not perform as good as newer models. The model is preferred in this case, even if mundane, due to a smaller database it was trained on (potentially, less room for bias. We only need the model to perform actions and not handle back and furth conversations). Task successfully completing is much more likely using solid code rather than AI (better guarantees less errors, less room for AI-mess-ups as well as lessens the load on the context and cache).
 
+- MCP server functions shall be written in C,(to gain better control and understanding of the C language).
+- Functions shall write to json, save to json array, merge jsons. This shall server as practice for structs and memory management.
+- The model shall run locally on a BC250 device, by routing traffic from and to it over the network.
 
+# Container #3 - JSON to CSV:
+- Transfer of the JSON array from Container #2
+- C to convert the JSON to CSV and store in a DB
+- Handle edge case use-cases (same workplace, but different submitter\listing, etc).
+- Perform SQL\NOSQL CRUD operations (Practice SQL)
+- This container is mainly for practice and a bit of dabbling in Database operation (as well as to make my life a bit of a living hell more than it is currently so I push myself a bit😁).
 
+# Container #4 - Data Processing:
+- Using python, fetch data from the Database.
+- Data fetched shall then be processed using analytics libraries (pandas, mattplot, etc)
+- Present basic data analysis for the listings (in which region are jobs searched for most, how many jobs are searched in total this month\day, how frequently does a workplace post listings, etc)
+- A user shall have the option for filtering.
 
+# Container #5 - Webpage frontend:
+- Basic webpage presenting data processed in the previous container (#4).
+- The webpage shall consist of basic HTML, CSS and JS.
 
-- Rephrase all the entries taken from my post to fit this readme.
--
--
--
--
--
-- I know I can just instruct the model to write the json, but its a bit of an old model, so performance won't be as good as other models, and also, I'd rather have a mundane, but simple, task be performed properly using solid code rather than the AI do it, because it both better guarantees no errors\AI-mess-ups as well as lessens the load on the context adn cache.
+# Container #6 - Webpage backend:
+- Backend shall be written in Java Spring\Boot.
 
-The code shall be written in C, as I want to gain better control and understanding of the C language. The functions will (probably) be - write to json, save to json array, merge jsons, with the idea being - practicing struct and memory management as well. Not quite sure how though, so, I'll appreciate it a lot if someone well versed in C could provide their perspective in the matter😅
-
-The model is going to run locally on a BC250 I have. I want to route the traffic from and to it. Again, local host at first, then self-hosted... somewhere... (eventually.... I hope....)
-
-Container #3 - JSON to CSV:
-
-I'll be honest - I don't truly know what am I thinking here... The idea was to transfer the JSON array from Container #2 and use C to convert the JSON to CSV and store in a DB (not quite sure which yet either. Would like to hear suggestions as well as the reasoning behind them).
-
-The plan is to also handle usecases such as "same workplace, but different submitter\listing" and practice a bit of SQL or maybe NOSQL.
-
-This container is mainly for practice and a bit of dabbling in Database operation (as well as to make my life a bit of a living hell more than it is currently so I push myself a bit😁). Open to suggestions\advice.
-
-Container #4 - Data Processing:
-
-With the help of python - fetch data from the Database and process the data using stuff like pandas, mattplot and everything else I haven't touched in 2 years 😔
-
-The plan is to present some basic data analysis about all the listings, such as which in which region are jobs searched for most, how many jobs are searched in total this month\day (maybe even allow the user to choose some filters. The action itself shall happen in the front+backend, but data processing shall happen in advance in this step?), How frequently does a workplace post listings, etc.
-
-Container #5 - Webpage frontend:
-
-A basic webpage to show the data processed in the previous container (#4).
-
-The page shall use basic HTML, CSS and maybe a bit of JS. (Should I use React \ Swift? I am not familiar with any of those at all... besides, I am not really aiming for any frontend jobs...)
-
-Not much to state here.... just some buttons and tables... maybe a small introduction paragraph to introduce myself and my credentials and contact methods?
-
-Container #6 - Webpage backend:
-
-Backend stuff... I guess...
-
-Going to use Java Spring\Boot for this one. Used Java Spring in the past and so, I have a little bit of experience (and a whole bunch of horrible memories of mental breakdowns 😥)
-
-Container #7 - Hosting:
-
-A docker image of Ngin X for running a self-hosted server. Local host at first, self-hosted later.
-
-Don't quite know anything about Ngin-X not about hosting in general, so I suppose this image being used for both is going to be fine (?) 😶
+# Container #7 - Hosting:
+- Docker image of Ngin X for running a self-hosted server (Local host at first, self-hosted later)
